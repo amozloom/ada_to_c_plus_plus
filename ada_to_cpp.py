@@ -59,7 +59,7 @@ def main():
     ada_code = input_path.read_text()
 
     prompt = build_prompt(ada_code)
-    print("➡️ Sending Ada code to Code Llama...")
+    print("Sending Ada code to Code Llama...")
 
     cpp_code = run_ollama(prompt).strip()
     for fence in ["```cpp", "```c++", "```c", "```", "``"]:
@@ -68,7 +68,7 @@ def main():
     cpp_code = cpp_code.strip()
     output_path.write_text(cpp_code)
 
-    print(f"✅ C++ written to: {output_path}")
+    print(f"C++ written to: {output_path}")
 
 if __name__ == "__main__":
     main()

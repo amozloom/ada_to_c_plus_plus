@@ -4,11 +4,11 @@ import sys
 from pathlib import Path
 import textwrap
 
-MODEL = "codellama"
+MODEL = "codellama" 
 
 def run_ollama(prompt: str) -> str:
     """
-    Send a prompt to Ollama and return the model output.
+    Send a prompt to Ollama and return the generated text.
     """
     process = subprocess.Popen(
         ["ollama", "run", MODEL],
@@ -26,18 +26,18 @@ def run_ollama(prompt: str) -> str:
 
 def build_prompt(ada_code: str) -> str:
     """
-    Build a clear instruction prompt for Code Llama.
+    Create a clear structured prompt for Code Llama.
     """
     prompt = f"""
     You are a code translation assistant.
 
-    Task:
-    - Translate the following Ada code into modern C++17.
-    - Preserve the behavior and program structure as much as possible.
-    - Output ONLY valid C++ source code for a single .cpp file.
-    - Do NOT include explanations, comments, markdown, or backticks.
+    TASK:
+    - Translate the following Ada code into C++17.
+    - Preserve the behavior.
+    - Output ONLY valid compilable C++ code.
+    - Do NOT include markdown, comments, or explanations.
 
-    Ada code:
+    ADA CODE:
     ```ada
     {ada_code}
     ```
@@ -60,10 +60,10 @@ def main():
 
     prompt = build_prompt(ada_code)
     print("➡️ Sending Ada code to Code Llama...")
-    cpp_code = run_ollama(prompt)
-    cpp_code = cpp_code.strip()
 
+    cpp_code = run_ollama(prompt).strip()
     output_path.write_text(cpp_code)
+
     print(f"✅ C++ written to: {output_path}")
 
 if __name__ == "__main__":

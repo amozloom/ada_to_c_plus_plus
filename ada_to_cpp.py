@@ -62,6 +62,10 @@ def main():
     print("➡️ Sending Ada code to Code Llama...")
 
     cpp_code = run_ollama(prompt).strip()
+    for fence in ["```cpp", "```c++", "```c", "```", "``"]:
+        cpp_code = cpp_code.replace(fence, "")
+
+    cpp_code = cpp_code.strip()
     output_path.write_text(cpp_code)
 
     print(f"✅ C++ written to: {output_path}")
